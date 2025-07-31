@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Page Turning Animation</title>
+    <title>Vertical Horizon Aviation</title>
     <style>
         @font-face {
             font-family: 'Komu';
@@ -17,7 +17,7 @@
         }
 
         :root {
-            --transition-speed: 1200ms;
+            --transition-speed: 800ms;
             --easing: cubic-bezier(0.25, 0.1, 0.25, 1);
         }
 
@@ -33,8 +33,18 @@
             height: 100vh;
             overflow: hidden;
             font-family: 'Noka';
-            background: #1a1a1a;
+            background: #5d5d5d;
             perspective: 1200px;
+            touch-action: none;
+        }
+
+        a {
+            color: black;
+            text-decoration: underline;
+        }
+
+        a:visited {
+            color: black;
         }
 
         h1,
@@ -43,6 +53,23 @@
         h4,
         h5 {
             font-family: 'Komu';
+        }
+
+        .top-page-title {
+            position: absolute;
+            left: 50%;
+            transform: translate(-50%);
+            width: -webkit-fill-available;
+            width: 100%;
+            color: #dfdfdf;
+            font-family: 'Komu';
+            text-align: center;
+            top: 15px;
+            z-index: 0;
+        }
+
+        .top-page-title h1 {
+            font-family: 'Noka';
         }
 
         .book-container {
@@ -56,106 +83,83 @@
 
         .page {
             position: absolute;
-            width: 80vw;
+            padding-left: 10%;
+            padding-right: 10%;
+            width: 90vw;
             max-width: 800px;
             height: 80vh;
-            max-height: 600px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            background: #ffffff;
+            background: #efefef;
             border-radius: 8px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             transform-origin: left center;
             transform-style: preserve-3d;
-            border-top-left-radius: 4px;
-            border-bottom-left-radius: 4px;
+            border-top-left-radius: 8px;
+            border-bottom-left-radius: 8px;
             border-top-right-radius: 16px;
             border-bottom-right-radius: 16px;
             backface-visibility: visible;
             transition: transform var(--transition-speed) var(--easing), box-shadow var(--transition-speed) var(--easing);
+            border-left: 1px solid #212121;
         }
 
+        .page.last.turned {
+            z-index: 200 !important;
+        }
 
+        .page.last,
         .page-1 {
-            /* background-image: url(white-fine-leather-textured-background.jpg); */
-            background-image: url(leather-macro-shot.jpg);
+            background-image: url(images/white-fine-leather-textured-background.jpg);
+            background-image: url(images/orange-fine-leather-textured-background.jpg);
+            background-image: url(images/leather-macro-shot.jpg);
+            background-size: cover;
             background-size: contain;
+            outline: none;
+            background: radial-gradient(#161616 15%, transparent 16%) 0 0, radial-gradient(#161616 15%, transparent 16%) 8px 8px, radial-gradient(rgba(255, 255, 255, .1) 15%, transparent 20%) 0 1px, radial-gradient(rgba(255, 255, 255, .1) 15%, transparent 20%) 8px 9px;
+            background-color: #282828;
+            background-size: 16px 16px;
         }
 
-        /* Default state - flat and visible */
         .page.active {
             transform: perspective(1200px) rotateY(0deg) translateZ(0px);
             box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+            transition: transform var(--transition-speed) var(--easing);
         }
 
-        /* Pages that are "behind" the current page */
         .page.behind {
             transform: perspective(1200px) rotateY(0deg) translateZ(-20px);
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
 
-        /* Page that's currently turning */
         .page.turning {
-            transform: perspective(1200px) rotateY(-180deg) translateZ(-15px);
+            transform: perspective(1200px) rotateY(-180deg) translateZ(-15px) translateX(6px);
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
         }
 
-        /* Pages that have been turned (completely flipped) */
         .page.turned {
-            transform: perspective(1200px) rotateY(-180deg) translateZ(-10px);
+            transform: perspective(1200px) rotateY(-180deg) translateZ(-10px) translateX(10px);
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             pointer-events: none;
         }
 
-        /* Dynamic z-index based on page position */
-        .page:nth-child(1) {
-            z-index: 100;
-        }
-
-        .page:nth-child(2) {
-            z-index: 99;
-        }
-
-        .page:nth-child(3) {
-            z-index: 98;
-        }
-
-        .page:nth-child(4) {
-            z-index: 97;
-        }
-
-        .page:nth-child(5) {
-            z-index: 96;
-        }
-
-        .page:nth-child(6) {
-            z-index: 95;
-        }
-
-        .page:nth-child(7) {
-            z-index: 94;
-        }
-
-        .page:nth-child(8) {
-            z-index: 93;
-        }
-
-        .page:nth-child(9) {
-            z-index: 92;
-        }
-
-        .page:nth-child(10) {
-            z-index: 91;
-        }
-
-        /* Disable transitions when we need instant changes */
         .page.no-transition {
             transition: none !important;
         }
 
-        /* Page content styling */
+        .title {
+            text-align: center;
+            font-size: 2.6em;
+            margin-left: 15%;
+            margin-right: 15%;
+            color: #dbd5d5;
+            background-blend-mode: difference;
+            font-weight: bolder;
+            letter-spacing: 1.2px;
+        }
+
         .page h1 {
             font-size: 3rem;
             margin-bottom: 2rem;
@@ -168,25 +172,36 @@
             margin-bottom: 1.5rem;
             color: #444;
             text-align: center;
+            letter-spacing: 1.4px;
         }
 
         .page p {
-            font-size: 1.2rem;
+            font-size: 1rem;
             line-height: 1.6;
             color: #666;
-            text-align: center;
+            text-align: left;
             max-width: 600px;
             margin: 0 2rem;
+            width: -webkit-fill-available;
+        }
+
+        .middle-section {
+            top: 50%;
+            position: absolute;
+            left: 50%;
+            width: 100%;
+            transform: translate(-50%, -50%);
+            background: transparent;
+            justify-content: center;
+            text-align: center;
+            mix-blend-mode: exclusion;
         }
 
         .logo {
             font-size: 4rem;
-            position: absolute;
-            margin-bottom: 1rem;
-            top: 50%;
-            left: 50%;
-            mix-blend-mode: soft-light;
-            transform: translate(-50%, -50%);
+            margin-left: auto;
+            width: fit-content;
+            margin-right: auto;
         }
 
         section.page.page-1.turned {
@@ -194,105 +209,328 @@
         }
 
         .logo img {
-            width: 300px;
-            height: 300px;
+            width: 250px !important;
+            height: 250px !important;
+            margin: 0px !important;
         }
 
-        /* Individual page colors */
         .page:nth-child(1) {
             color: white;
-        }
-
-        .page:nth-child(2):has(.behind) .page:nth-child(1) {
-            z-index: 0;
-        }
-
-        .page:nth-child(1).page.turned {
         }
 
         .page:nth-child(2) {
             color: white;
         }
 
-        .page:nth-child(2).page.turned {
-        }
-
         .page:nth-child(3) {
             color: #333;
-        }
-
-        .page:nth-child(3).page.turned {
         }
 
         .page:nth-child(4) {
             color: #333;
         }
 
-        .page:nth-child(4).page.turned {
+        .page img {
+            width: -webkit-fill-available;
+            width: -moz-available;
+            margin-left: 10%;
+            margin-right: 10%;
+            margin-bottom: 2.5%;
+            margin-top: 2.5%;
+            border-radius: 6px;
         }
 
-        /* Navigation hint */
-        .nav-hint {
+        /* Visual indicators */
+        .page-indicator {
             position: fixed;
-            bottom: 20px;
+            bottom: 30px;
             left: 50%;
             transform: translateX(-50%);
-            color: #888;
-            font-size: 0.9rem;
+            display: flex;
+            gap: 8px;
+            z-index: 300;
+            pointer-events: none;
+        }
+
+        .page-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .page-dot.active {
+            background: rgba(255, 255, 255, 0.8);
+            transform: scale(1.2);
+        }
+
+        /* Swipe visual feedback */
+        .swipe-indicator {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 24px;
+            color: rgba(255, 255, 255, 0.6);
+            z-index: 250;
+            opacity: 0;
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+
+        .swipe-indicator.left {
+            left: 20px;
+        }
+
+        .swipe-indicator.right {
+            right: 20px;
+        }
+
+        .swipe-indicator.show {
+            opacity: 1;
+        }
+
+        /* Enhanced nav hint */
+        .nav-hint {
+            position: fixed;
+            bottom: 44px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #ffffff;
+            font-size: 0.8rem;
             text-align: center;
-            z-index: 100;
+            z-index: 300;
+            width: 100%;
+            opacity: 0.7;
+        }
+
+        /* Touch feedback */
+        .page.touch-feedback {
+            transform: perspective(1200px) rotateY(0deg) translateZ(5px) scale(0.98);
+        }
+
+        /* Smooth scroll momentum */
+        .momentum-indicator {
+            position: fixed;
+            bottom: 10px;
+            right: 20px;
+            width: 40px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 2px;
+            z-index: 300;
+            overflow: hidden;
+        }
+
+        .momentum-bar {
+            height: 100%;
+            background: rgba(164, 220, 255, 0.8);
+            border-radius: 2px;
+            width: 0%;
+            transition: width 0.1s ease;
+        }
+
+        section.page.file {
+            background: transparent;
+            box-shadow: none;
+            outline: none;
+        }
+
+        /* Mobile optimizations */
+        @media (max-width: 768px) {
+            .page {
+                width: 90vw;
+                height: 80vh;
+            }
+
+            .page h1 {
+                font-size: 2.5rem;
+            }
+
+            .page h2 {
+                font-size: 2rem;
+            }
+
+            .page p {
+                font-size: 0.9rem;
+                margin: 0 1rem;
+                margin-bottom: 2rem;
+            }
+
+            .logo img {
+                width: 200px;
+                height: 200px;
+                margin: 0px !important;
+            }
+
+            .title {
+                font-size: 1.4em;
+            }
         }
     </style>
 </head>
 
 <body>
+    <div class="top-page-title">
+        <h1>Vertical Horizon Aviation</h1>
+    </div>
+
     <div class="book-container">
         <section class="page active page-1">
-            <div class="logo">
-                <img src="VHA_05.png" alt="Logo">
+            <div class="middle-section">
+                <div class="logo"><img src="images/VHA_07.png" alt="Logo"></div>
+                <div class="title">Vertical Horizon Aviation</div>
             </div>
         </section>
 
         <section class="page behind">
-            <h2>Our Services</h2>
-            <p>We offer incredible solutions that transform the way you work and live. Our comprehensive suite of
-                services is designed to meet your every need.</p>
+            <img src="images/first.png" class="first" alt="Logo">
+            <h2>Brian Smiley</h2>
+            <p><strong>Independent Flight Instructor Services</strong><br><br>Lorem ipsum dolor sit amet, consectetur
+                adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+                ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+                fugiat nulla pariatur.</p>
         </section>
 
         <section class="page behind">
-            <h2>About Us</h2>
-            <p>Founded with a vision to innovate and inspire, we've been at the forefront of creating meaningful
-                experiences for our clients around the world.</p>
+            <h2>Testimonials</h2>
+            <p><strong>John Doe</strong> - Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut enim ad minim
+                veniam, quis nostrud exercitation ullamco laboris.</p><br>
+            <p><strong>Jane Smith</strong> - Lorem ipsum dolor sit amet, sed do eiusmod tempor incididunt ut labore et
+                dolore magna aliqua.</p><br>
+            <p><strong>Emily Johnson</strong> - Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis aute irure
+                dolor in reprehenderit in voluptate.</p><br>
         </section>
 
         <section class="page behind">
-            <h2>Contact</h2>
-            <p>Ready to get started? Reach out to us and let's create something extraordinary together. Your success is
-                our mission.</p>
+            <h2>Pilot Certifications</h2>
+            <p><strong>Total Flight Hours:</strong> 2,847 hours</p><br>
+            <p><strong>Certifications:</strong> Commercial Pilot License (CPL), Instrument Rating (IR), Multi-Engine
+                Rating</p><br>
+            <p><strong>Aircraft Types:</strong> Cessna 172, Piper Cherokee, Beechcraft Baron, Cirrus SR22</p><br>
+            <p><strong>Experience:</strong> Cross-country navigation, instrument approach procedures, emergency
+                protocols</p><br>
+        </section>
+
+        <section class="page behind">
+            <img src="images/second.jpg" alt="Aircraft cockpit view" />
+            <img src="images/third.jpg" alt="Aerial landscape photography" />
+            <img src="images/fourth.jpg" alt="Aerial landscape photography" />
+        </section>
+
+        <section class="page behind">
+            <img src="images/fifth.jpg" alt="Aerial landscape photography" />
+            <h2>Contact Me</h2>
+            <p><strong>Email:</strong> <a href="mailto:aerokayak@comcast.net">aerokayak@comcast.net</a></p>
+            <p><strong>Phone:</strong> <a href="tel:+13034758866">(303) 475-8866</a></p>
+            <p><strong>Location:</strong> Denver, CO</p>
+            <p><strong>Available for:</strong> Charter flights, flight instruction</p>
+        </section>
+
+        <section class="page behind last">
+        </section>
+
+        <section class="page behind file">
+            <img src="images/VHA-02.png" alt="Aerial landscape photography" />
         </section>
     </div>
 
+    <!-- Visual indicators -->
+    <div class="page-indicator">
+        <div class="page-dot active"></div>
+        <div class="page-dot"></div>
+        <div class="page-dot"></div>
+        <div class="page-dot"></div>
+        <div class="page-dot"></div>
+        <div class="page-dot"></div>
+    </div>
+
+    <div class="swipe-indicator left">‹</div>
+    <div class="swipe-indicator right">›</div>
+
+    <div class="momentum-indicator">
+        <div class="momentum-bar"></div>
+    </div>
+
     <div class="nav-hint">
-        Use mouse wheel or swipe to turn pages
+        Swipe up/down • Swipe left/right • Mouse wheel • Arrow keys
     </div>
 
     <script>
         const pages = [...document.querySelectorAll('.page')];
+        const pageDots = [...document.querySelectorAll('.page-dot')];
+        const leftIndicator = document.querySelector('.swipe-indicator.left');
+        const rightIndicator = document.querySelector('.swipe-indicator.right');
+        const momentumBar = document.querySelector('.momentum-bar');
+
         let current = 0;
         let isAnimating = false;
         let animationTimeout = null;
+        let queuedPage = null;
 
-        // Initialize page states
+        // Touch handling variables
+        let touchStartX = null;
+        let touchStartY = null;
+        let touchStartTime = null;
+        let lastTouchTime = null;
+        let velocityX = 0;
+        let velocityY = 0;
+        let touchMoved = false;
+
+        // Z-index management
+        function updateZIndex() {
+            pages.forEach((page, i) => {
+                if (page.classList.contains('turning')) {
+                    page.style.zIndex = 200;
+                } else if (page.classList.contains('turned')) {
+                    page.style.zIndex = 10 + i;
+                } else if (page.classList.contains('active')) {
+                    page.style.zIndex = 100;
+                } else {
+                    page.style.zIndex = 50 + (pages.length - i);
+                }
+            });
+        }
+
+        // Initialize pages
         function initializePages() {
             pages.forEach((page, i) => {
                 page.classList.remove('active', 'behind', 'turning', 'turned', 'no-transition');
-
                 if (i === 0) {
                     page.classList.add('active');
                 } else {
                     page.classList.add('behind');
                 }
             });
+            updatePageIndicators();
+            updateZIndex();
+        }
+
+        // Update page indicators
+        function updatePageIndicators() {
+            pageDots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === current);
+            });
+        }
+
+        // Show swipe indicator
+        function showSwipeIndicator(direction, strength = 1) {
+            const indicator = direction === 'left' ? leftIndicator : rightIndicator;
+            indicator.classList.add('show');
+            indicator.style.opacity = Math.min(0.8, 0.3 + strength * 0.5);
+            setTimeout(() => {
+                indicator.classList.remove('show');
+            }, 300);
+        }
+
+        // Update momentum indicator
+        function updateMomentumIndicator(velocity) {
+            const normalizedVelocity = Math.min(Math.abs(velocity) / 10, 1);
+            momentumBar.style.width = `${normalizedVelocity * 100}%`;
+            setTimeout(() => {
+                momentumBar.style.width = '0%';
+            }, 200);
         }
 
         function showPage(targetIndex) {
@@ -300,15 +538,10 @@
                 return;
             }
 
-            // Clear any existing animation timeout to allow interruption
-            if (animationTimeout) {
-                clearTimeout(animationTimeout);
-                animationTimeout = null;
-            }
-
-            // If we're currently animating, immediately finish the current animation
+            // If animating, queue this request
             if (isAnimating) {
-                finishCurrentAnimation();
+                queuedPage = targetIndex;
+                return;
             }
 
             isAnimating = true;
@@ -319,150 +552,218 @@
             } else {
                 turnPageBackward(targetIndex);
             }
-        }
 
-        function finishCurrentAnimation() {
-            // Remove all transition classes and set final states
-            pages.forEach((page, i) => {
-                page.classList.remove('turning', 'no-transition');
-                page.classList.remove('active', 'behind', 'turned');
-
-                if (i === current) {
-                    page.classList.add('active');
-                } else if (i < current) {
-                    page.classList.add('turned');
-                } else {
-                    page.classList.add('behind');
-                }
-            });
-            isAnimating = false;
+            // Update current immediately for responsive feel
+            current = targetIndex;
+            updatePageIndicators();
         }
 
         function turnPageForward(targetIndex) {
             const currentPage = pages[current];
             const nextPage = pages[targetIndex];
 
-            // FIRST: Make sure the next page is ready underneath (no animation)
+            // Prepare next page
             nextPage.classList.add('no-transition');
             nextPage.classList.remove('behind');
             nextPage.classList.add('active');
-
-            // Force reflow to apply no-transition
-            void nextPage.offsetWidth;
+            void nextPage.offsetWidth; // Force reflow
             nextPage.classList.remove('no-transition');
 
-            // THEN: Start the page turn animation on current page
+            // Animate current page out
             currentPage.classList.remove('active');
             currentPage.classList.add('turning');
 
-            // When turn animation completes
+            updateZIndex();
+
+            // Clear any existing timeout
+            if (animationTimeout) {
+                clearTimeout(animationTimeout);
+            }
+
+            // Complete animation
             animationTimeout = setTimeout(() => {
-                // Complete the turn
                 currentPage.classList.remove('turning');
                 currentPage.classList.add('turned');
+                updateZIndex();
 
-                // Update all page states
-                updatePageStates(targetIndex);
-
-                current = targetIndex;
                 isAnimating = false;
                 animationTimeout = null;
-            }, 600); // Half the transition time for smooth effect
+
+                // Process queued page if any
+                if (queuedPage !== null) {
+                    const nextTarget = queuedPage;
+                    queuedPage = null;
+                    showPage(nextTarget);
+                }
+            }, 800); // Match your CSS transition time
         }
 
         function turnPageBackward(targetIndex) {
             const currentPage = pages[current];
             const prevPage = pages[targetIndex];
 
-            // FIRST: Prepare the previous page underneath in the turned state (no animation)
+            // Prepare previous page
             prevPage.classList.add('no-transition');
             prevPage.classList.remove('behind', 'active');
             prevPage.classList.add('turned');
-
-            // Force reflow
-            void prevPage.offsetWidth;
+            void prevPage.offsetWidth; // Force reflow
             prevPage.classList.remove('no-transition');
 
-            // THEN: Move current page to behind
+            // Move current page back
             currentPage.classList.remove('active');
             currentPage.classList.add('behind');
 
-            // Now animate the previous page "unturning" from turned back to active
+            // Animate previous page in
             prevPage.classList.remove('turned');
             prevPage.classList.add('turning');
 
-            // Small delay to ensure the turning class is applied
+            updateZIndex();
+
             requestAnimationFrame(() => {
                 prevPage.classList.remove('turning');
                 prevPage.classList.add('active');
             });
 
-            animationTimeout = setTimeout(() => {
-                // Update all page states
-                updatePageStates(targetIndex);
+            // Clear any existing timeout
+            if (animationTimeout) {
+                clearTimeout(animationTimeout);
+            }
 
-                current = targetIndex;
+            // Complete animation
+            animationTimeout = setTimeout(() => {
+                updateZIndex();
                 isAnimating = false;
                 animationTimeout = null;
-            }, 600);
+
+                // Process queued page if any
+                if (queuedPage !== null) {
+                    const nextTarget = queuedPage;
+                    queuedPage = null;
+                    showPage(nextTarget);
+                }
+            }, 800); // Match your CSS transition time
         }
 
-        function updatePageStates(activeIndex) {
-            pages.forEach((page, i) => {
-                page.classList.remove('active', 'behind', 'turning', 'turned');
-
-                if (i === activeIndex) {
-                    page.classList.add('active');
-                } else if (i < activeIndex) {
-                    page.classList.add('turned');
-                } else {
-                    page.classList.add('behind');
-                }
-            });
-        }
-
-        // Mouse wheel navigation
-        let wheelTimeout;
-        window.addEventListener('wheel', (e) => {
-            e.preventDefault();
-
-            clearTimeout(wheelTimeout);
-            wheelTimeout = setTimeout(() => {
-                if (e.deltaY > 0 && current < pages.length - 1) {
-                    showPage(current + 1);
-                } else if (e.deltaY < 0 && current > 0) {
-                    showPage(current - 1);
-                }
-            }, 10); // Reduced timeout for more responsive interruption
-        }, { passive: false });
-
-        // Touch navigation
-        let startY = null;
-        let startX = null;
-
+        // Enhanced touch handling
+        let touchTimeout;
         window.addEventListener('touchstart', (e) => {
-            startY = e.touches[0].clientY;
-            startX = e.touches[0].clientX;
-        });
+            const touch = e.touches[0];
+            touchStartX = touch.clientX;
+            touchStartY = touch.clientY;
+            touchStartTime = Date.now();
+            touchMoved = false;
+            velocityX = 0;
+            velocityY = 0;
+
+            // Add touch feedback
+            const activePage = pages[current];
+            activePage.classList.add('touch-feedback');
+            clearTimeout(touchTimeout);
+        }, { passive: true });
+
+        window.addEventListener('touchmove', (e) => {
+            if (touchStartX === null || touchStartY === null) return;
+
+            const touch = e.touches[0];
+            const deltaX = touch.clientX - touchStartX;
+            const deltaY = touch.clientY - touchStartY;
+            const deltaTime = Date.now() - lastTouchTime || 1;
+
+            // Calculate velocity
+            velocityX = deltaX / deltaTime;
+            velocityY = deltaY / deltaTime;
+            touchMoved = true;
+            lastTouchTime = Date.now();
+
+            // Show direction indicators based on swipe
+            const absX = Math.abs(deltaX);
+            const absY = Math.abs(deltaY);
+
+            if (absX > 30 || absY > 30) {
+                if (absX > absY) {
+                    if (deltaX > 0 && current > 0) {
+                        showSwipeIndicator('left', absX / 100);
+                    } else if (deltaX < 0 && current < pages.length - 1) {
+                        showSwipeIndicator('right', absX / 100);
+                    }
+                }
+            }
+        }, { passive: true });
 
         window.addEventListener('touchend', (e) => {
-            if (startY === null || startX === null) return;
+            if (touchStartX === null || touchStartY === null) return;
 
-            const deltaY = startY - e.changedTouches[0].clientY;
-            const deltaX = startX - e.changedTouches[0].clientX;
+            const touch = e.changedTouches[0];
+            const deltaX = touch.clientX - touchStartX;
+            const deltaY = touch.clientY - touchStartY;
+            const deltaTime = Date.now() - touchStartTime;
+            const absX = Math.abs(deltaX);
+            const absY = Math.abs(deltaY);
 
-            // Prioritize vertical swipes for page turning
-            if (Math.abs(deltaY) > Math.abs(deltaX)) {
-                if (deltaY > 50 && current < pages.length - 1) {
+            // Remove touch feedback
+            pages.forEach(page => page.classList.remove('touch-feedback'));
+
+            // Determine if it's a quick swipe or slow drag
+            const isQuickSwipe = deltaTime < 300;
+            const minSwipeDistance = isQuickSwipe ? 50 : 100;
+
+            // Update momentum indicator
+            updateMomentumIndicator(Math.max(Math.abs(velocityX), Math.abs(velocityY)));
+
+            let handled = false;
+
+            // Horizontal swipes (left/right navigation)
+            if (absX > absY && absX > minSwipeDistance) {
+                if (deltaX > 0 && current > 0) {
+                    showPage(current - 1);
+                    handled = true;
+                } else if (deltaX < 0 && current < pages.length - 1) {
                     showPage(current + 1);
-                } else if (deltaY < -50 && current > 0) {
+                    handled = true;
+                }
+            }
+
+            // Vertical swipes (up/down navigation) - only if horizontal wasn't handled
+            if (!handled && absY > minSwipeDistance) {
+                if (deltaY < 0 && current < pages.length - 1) {
+                    showPage(current + 1);
+                } else if (deltaY > 0 && current > 0) {
                     showPage(current - 1);
                 }
             }
 
-            startY = null;
-            startX = null;
-        });
+            // Reset touch variables
+            touchStartX = null;
+            touchStartY = null;
+            touchStartTime = null;
+            lastTouchTime = null;
+            touchMoved = false;
+        }, { passive: true });
+
+        // Enhanced mouse wheel handling
+        let wheelTimeout;
+        let wheelDelta = 0;
+
+        window.addEventListener('wheel', (e) => {
+            e.preventDefault();
+
+            // Accumulate wheel delta
+            wheelDelta += e.deltaY;
+
+            updateMomentumIndicator(Math.abs(wheelDelta) / 10);
+
+            clearTimeout(wheelTimeout);
+            wheelTimeout = setTimeout(() => {
+                if (Math.abs(wheelDelta) > 50) {
+                    if (wheelDelta > 0 && current < pages.length - 1) {
+                        showPage(current + 1);
+                    } else if (wheelDelta < 0 && current > 0) {
+                        showPage(current - 1);
+                    }
+                }
+                wheelDelta = 0;
+            }, 50);
+        }, { passive: false });
 
         // Keyboard navigation
         window.addEventListener('keydown', (e) => {
@@ -471,18 +772,39 @@
                 case 'ArrowDown':
                 case ' ':
                     e.preventDefault();
-                    if (current < pages.length - 1) showPage(current + 1);
+                    if (current < pages.length - 1) {
+                        showSwipeIndicator('right');
+                        showPage(current + 1);
+                    }
                     break;
                 case 'ArrowLeft':
                 case 'ArrowUp':
                     e.preventDefault();
-                    if (current > 0) showPage(current - 1);
+                    if (current > 0) {
+                        showSwipeIndicator('left');
+                        showPage(current - 1);
+                    }
                     break;
             }
         });
 
         // Initialize
         initializePages();
+
+        // Hide nav hint after first interaction
+        let hasInteracted = false;
+        function hideNavHint() {
+            if (!hasInteracted) {
+                hasInteracted = true;
+                setTimeout(() => {
+                    document.querySelector('.nav-hint').style.opacity = '0.3';
+                }, 2000);
+            }
+        }
+
+        ['touchstart', 'wheel', 'keydown'].forEach(event => {
+            window.addEventListener(event, hideNavHint, { once: true });
+        });
     </script>
 </body>
 
