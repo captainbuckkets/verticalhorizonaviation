@@ -121,6 +121,10 @@
             background: radial-gradient(#161616 15%, transparent 16%) 0 0, radial-gradient(#161616 15%, transparent 16%) 8px 8px, radial-gradient(rgba(255, 255, 255, .1) 15%, transparent 20%) 0 1px, radial-gradient(rgba(255, 255, 255, .1) 15%, transparent 20%) 8px 9px;
             background-color: #282828;
             background-size: 16px 16px;
+            --s: 14px;
+            --_g: #0000 83%, #353535 85% 99%, #0000 101%;
+            background: radial-gradient(27% 29% at right, var(--_g)) calc(var(--s) / 2) var(--s), radial-gradient(27% 29% at left, var(--_g)) calc(var(--s) / -2) var(--s), radial-gradient(29% 27% at top, var(--_g)) 0 calc(var(--s) / 2), radial-gradient(29% 27% at bottom, var(--_g)) 0 calc(var(--s) / -2) #2b2b2b;
+            background-size: calc(2 * var(--s)) calc(2 * var(--s));
         }
 
         .page.active {
