@@ -64,7 +64,7 @@
             color: #dfdfdf;
             font-family: 'Komu';
             text-align: center;
-            top: 15px;
+            top: 5%;
             z-index: 0;
         }
 
@@ -106,8 +106,22 @@
             border-left: 1px solid #212121;
         }
 
+        .page > .background {
+            background: white;
+        }
+
+        img.first {
+            margin: 0;
+            padding: 0px;
+        }
+
+        .page * {
+            transition: filter var(--transition-speed) var(--easing);
+        }
+
         .page.last.turned {
             z-index: 200 !important;
+            
         }
 
         .page.last,
@@ -247,7 +261,7 @@
         /* Visual indicators */
         .page-indicator {
             position: fixed;
-            bottom: 30px;
+            bottom: 8%;
             left: 50%;
             transform: translateX(-50%);
             display: flex;
@@ -272,6 +286,7 @@
         /* Swipe visual feedback */
         .swipe-indicator {
             position: fixed;
+            display: none;
             top: 50%;
             transform: translateY(-50%);
             font-size: 24px;
@@ -297,7 +312,7 @@
         /* Enhanced nav hint */
         .nav-hint {
             position: fixed;
-            bottom: 100px;
+            bottom: 80px;
             left: 50%;
             transform: translateX(-50%);
             color: #ffffff;
@@ -316,7 +331,7 @@
         /* Smooth scroll momentum */
         .momentum-indicator {
             position: fixed;
-            bottom: 10px;
+            bottom: 8%;
             right: 20px;
             width: 40px;
             height: 4px;
@@ -377,14 +392,14 @@
 
 <body>
     <div class="top-page-title">
-        <h1>Vertical Horizon Aviation</h1>
+        <h1><span style="color: #e1675d">Vertical</span> <span style="color: #4fadcc;">Horizon</span> <span>Aviation</span></h1>
     </div>
 
     <div class="book-container">
         <section class="page active page-1">
             <div class="middle-section">
                 <div class="logo"><img src="images/VHA_07.png" alt="Logo"></div>
-                <div class="title">Vertical Horizon Aviation</div>
+                <div class="title"><span style="color: #e94234">Vertical</span> <span style="color: #4fadcc;">Horizon</span> <span>Aviation</span></div>
             </div>
         </section>
 
